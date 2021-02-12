@@ -5,11 +5,11 @@ import {
   Param,
   Post,
   UploadedFile,
-  UseGuards,
+  // UseGuards,
   UseInterceptors
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { JwtAuthGuard } from 'shared/modules/auth/guards/jwt.guard'
+// import { JwtAuthGuard } from 'shared/modules/auth/guards/jwt.guard'
 import { CreateTransactionDTO } from './models/dtos/create-transaction.dto'
 import { Transaction } from './models/entities/transactions.entity'
 
@@ -20,25 +20,25 @@ import { TransactionsService } from './transactions.service'
 export class TransactionsController {
   constructor(private readonly transactionsService: TransactionsService) {}
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get()
   async findAll(): Promise<RetrieveTransactions> {
     return this.transactionsService.findAll()
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Transaction> {
     return this.transactionsService.findOne(id)
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Post()
   async createOne(@Body() payload: CreateTransactionDTO): Promise<Transaction> {
     return this.transactionsService.create(payload)
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Post('import')
   @UseInterceptors(FileInterceptor('file'))
   async createManyFromFile(@UploadedFile() file): Promise<Transaction[]> {
