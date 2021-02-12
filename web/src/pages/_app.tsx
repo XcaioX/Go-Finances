@@ -14,7 +14,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     <>
       <ReduxProvider store={store}>
         <ContextProvider>
-          <ThemeProvider theme={dark}>
+          <ThemeProvider theme={light}>
             <GlobalStyles />
 
             <AnimateSharedLayout>
