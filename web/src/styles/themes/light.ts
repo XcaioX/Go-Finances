@@ -4,7 +4,7 @@ export const light: ThemesProps = {
   title: 'light',
 
   colors: {
-    primary: '#fff',
+    primary: '#F0F2F5',
     secondary: '#000'
   }
 }
