@@ -1,18 +1,21 @@
+import Link from 'next/link'
+
 import { Container } from './styles'
 
 interface HeaderProps {
   size?: 'small' | 'large'
 }
 
-const Header: React.FC<HeaderProps> = ({ size = 'large' }) => {
+export const Header: React.FC<HeaderProps> = ({ size = 'large' }) => {
   return (
-    <Container>
+    <Container size={size}>
       <header>
         <img src="/logo.svg" alt="GoFinances" />
-        <nav></nav>
+        <nav>
+          <Link href="/Dashboard">Home</Link>
+          <Link href="/Import">Import</Link>
+        </nav>
       </header>
     </Container>
   )
 }
-
-export default Header
