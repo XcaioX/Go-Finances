@@ -1,12 +1,7 @@
-import Header from '@/components/Header'
-import { Container } from '../styles/pages/Home'
+import DashBoard from '@/pages/Dashboard'
 
 const Home: React.FC = () => {
-  return (
-    <Container>
-      <Header />
-    </Container>
-  )
+  return <DashBoard />
 }
 
 export default Home
