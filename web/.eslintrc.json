@@ -33,6 +33,7 @@
     "@typescript-eslint/ban-types": "off",
     "generator-star-spacing": "off",
     "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "camelcase": "off"
   }
 }
