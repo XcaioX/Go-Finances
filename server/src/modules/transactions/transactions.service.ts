@@ -12,7 +12,7 @@ import { CreateTransactionDTO } from './models/dtos/create-transaction.dto'
 import { Transaction } from './models/entities/transactions.entity'
 
 import { TransactionsRepository } from './transactions.repository'
-import { CategoriesService } from 'modules/categories/categories.service'
+import { CategoriesService } from '../../modules/categories/categories.service'
 import { RetrieveTransactions } from './models/total-balance'
 
 @Injectable()

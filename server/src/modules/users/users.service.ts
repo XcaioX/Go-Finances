@@ -76,8 +76,9 @@ export class UsersService {
   async updateRole(id: string, role: UserRoles): Promise<User> {
     const user = await this.findOne(id)
 
-    await this.usersRepository.update(id, { ...user, role })
-    return user
+    const updatedUser = this.usersRepository.create({ ...user, role })
+    await this.usersRepository.update(id, updatedUser)
+    return updatedUser
   }
 
   async deleteOne(id: string): Promise<void> {
@@ -86,9 +87,7 @@ export class UsersService {
   }
 
   async singUp(payload: SignUpDTO): Promise<User> {
-    let user = await this.usersRepository.findOne({
-      where: [{ username: payload.username }, { email: payload.email }]
-    })
+    let user = await this.findByUsernameOrEmail(payload.username, payload.email)
 
     if (user) throw new ConflictException('User already signed')
 
@@ -100,9 +99,13 @@ export class UsersService {
   }
 
   async signIn(payload: SignInDTO): Promise<SignIn> {
-    const user = await this.findByUsernameOrEmail(payload.credential)
+    const user = await this.findByUsernameOrEmail(
+      payload.credential,
+      payload.credential
+    )
 
     if (!user) throw new NotFoundException('User could not be found')
+
     const passwordCheck = await this.authService.comparePassword(
       payload.password,
       user.password
@@ -111,12 +114,15 @@ export class UsersService {
 
     const token = await this.authService.generateJwt(user)
 
-    return { token, userId: user.id }
+    return { token, user_id: user.id }
   }
 
-  private async findByUsernameOrEmail(credential: string): Promise<User> {
+  private async findByUsernameOrEmail(
+    username: string,
+    email: string
+  ): Promise<User> {
     return this.usersRepository.findOne({
-      where: [{ username: credential }, { email: credential }]
+      where: [{ username }, { email }]
     })
   }
 }

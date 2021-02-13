@@ -18,7 +18,7 @@ import { UpdateUserDTO } from './models/dtos/update-user.dto'
 import { User } from './models/entities/users.entity'
 import { UserRoles } from './models/enums/user-roles.enum'
 import { RolesGuard } from './guards/roles.guard'
-import { UsersIsUser } from './guards/user-is-user.guard'
+import { UserIsUser } from './guards/user-is-user.guard'
 import { SignIn } from './models/SignIn'
 import { CheckPasswordsMatch } from './pipes/check-passwords-match.pipe'
 
@@ -43,7 +43,7 @@ export class UsersController {
   }
 
   @hasRoles(UserRoles.ADMIN)
-  @UseGuards(JwtAuthGuard, UsersIsUser || RolesGuard)
+  @UseGuards(JwtAuthGuard, UserIsUser || RolesGuard)
   @Put(':id')
   async updateOne(
     @Param('id') id: string,

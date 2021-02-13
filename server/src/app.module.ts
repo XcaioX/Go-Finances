@@ -3,9 +3,9 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { CategoriesModule } from 'modules/categories/categories.module'
-import { TransactionModule } from 'modules/transactions/transactions.module'
 
+import { CategoriesModule } from './modules/categories/categories.module'
+import { TransactionModule } from './modules/transactions/transactions.module'
 import authConfig from './config/auth.config'
 import { nosqlDatabase, sqlDatabase } from './config/database.config'
 import { UsersModule } from './modules/users/users.module'

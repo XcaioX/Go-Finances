@@ -1,4 +1,4 @@
-import { Transaction } from 'modules/transactions/models/entities/transactions.entity'
+import { Transaction } from '../../../../modules/transactions/models/entities/transactions.entity'
 import {
   Column,
   CreateDateColumn,

@@ -1,5 +1,5 @@
-import { Category } from 'modules/categories/models/entities/categories.entity'
-import { TransactionType } from 'modules/transactions/models/enums/transaction-type.enum'
+import { Category } from '../../../../modules/categories/models/entities/categories.entity'
+import { TransactionType } from '../../../../modules/transactions/models/enums/transaction-type.enum'
 import {
   BaseEntity,
   Column,
