@@ -35,6 +35,9 @@ export class User extends BaseEntity {
   @Column({ type: 'enum', enum: UserRoles, default: UserRoles.USER })
   role: UserRoles
 
+  @Column({ nullable: true })
+  avatar: string
+
   @CreateDateColumn()
   created_at: Date
 
@@ -46,4 +49,9 @@ export class User extends BaseEntity {
     this.email = this.email.toLowerCase()
     this.email = this.email.trim()
   }
+
+  // @Expose({ name: 'avatar_url' })
+  // getAvatar_url(): string | null {
+  //   return this.avatar ? 'url_path' : null
+  // }
 }
