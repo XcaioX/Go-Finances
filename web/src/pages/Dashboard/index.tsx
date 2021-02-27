@@ -3,12 +3,15 @@ import { formatValue } from '@/util/formatValue'
 import { useCallback, useState } from 'react'
 
 import { Button } from '@/components/Button'
+import { Card } from './_Card'
+import { Table } from './_Table'
+import { ModalCreate } from './_ModalCreate'
 
 import { api } from '../../services/api'
 
-import { Container, CardContainer, TableContainer, Card } from './styles'
+import { Container, CardContainer, TableContainer } from './styles'
 
-interface Transaction {
+export interface Transaction {
   id: string
   title: string
   value: number
@@ -19,7 +22,7 @@ interface Transaction {
   created_at: Date
 }
 
-interface Balance {
+export interface Balance {
   income: number | string
   outcome: number | string
   total: number | string
@@ -31,8 +34,7 @@ const Dashboard: React.FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false)
 
   const createTransaction = useCallback(async (transaction: Transaction) => {
-    const response = await api.post('/transactions', transaction)
-    const data = response.data.data
+    await api.post('/transactions', transaction)
   }, [])
 
   const formatTransactions = useCallback(
@@ -50,9 +52,9 @@ const Dashboard: React.FC = () => {
 
   const formatBalance = useCallback(
     (balance: Balance): Balance => ({
-      income: formatValue(balance.income as number),
-      outcome: formatValue(balance.outcome as number),
-      total: formatValue(balance.total as number)
+      income: formatValue(+balance.income),
+      outcome: formatValue(+balance.outcome),
+      total: formatValue(+balance.total)
     }),
     []
   )
@@ -74,58 +76,31 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
+      {showModal && <ModalCreate createTransaction />}
       <Header />
       <Container>
         <CardContainer>
-          <Card>
-            <header>
-              <p>Income</p>
-              <img src="/income.svg" alt="Income" />
-            </header>
-            <h1 data-testid="balance-income">{balance.income}</h1>
-          </Card>
-
-          <Card>
-            <header>
-              <p>Outcome</p>
-              <img src="/outcome.svg" alt="Outcome" />
-            </header>
-            <h1 data-testid="balance-outcome">{balance.outcome}</h1>
-          </Card>
-
-          <Card>
-            <header>
-              <p>Total</p>
-              <img src="/total.svg" alt="Total" />
-            </header>
-            <h1 data-testid="balance-total">{balance.total}</h1>
-          </Card>
+          <Card
+            balance={balance}
+            type="income"
+            src="/income.svg"
+            alt="Income"
+          />
+          <Card
+            balance={balance}
+            type="outcome"
+            src="/outcome.svg"
+            alt="Outcome"
+          />
+          <Card balance={balance} type="total" src="/total.svg" alt="Total" />
         </CardContainer>
 
-        <Button onClick={() => setShowModal(!showModal)}>Create</Button>
+        <Button onClick={() => setShowModal(!showModal)}>
+          Create Transaction
+        </Button>
 
         <TableContainer>
-          <table>
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Data</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {transactions.map(transaction => (
-                <tr key={transaction.id}>
-                  <td className="title">{transaction.title}</td>
-                  <td className="income">{transaction.formattedValue}</td>
-                  <td>{transaction.category.title}</td>
-                  <td>{transaction.formattedDate}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <Table transactions={transactions} />
         </TableContainer>
       </Container>
     </>

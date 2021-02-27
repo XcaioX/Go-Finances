@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, DOMAttributes } from 'react'
+import { DOMAttributes } from 'react'
 import { Container } from './styles'
 
 type ButtonProps = DOMAttributes<HTMLButtonElement>
