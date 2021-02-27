@@ -42,7 +42,6 @@ export class TransactionsController {
   @Post('import')
   @UseInterceptors(FileInterceptor('file'))
   async createManyFromFile(@UploadedFile() file): Promise<Transaction[]> {
-    console.log(file)
     return this.transactionsService.createManyFromFile(file.path)
   }
 }
