@@ -1,12 +1,12 @@
+import { transactionContext } from '@/hooks/TransactionProvider'
+import { useContext } from 'react'
 import { Transaction } from '../index'
 
 import { Container } from './styles'
 
-interface TableProps {
-  transactions: Transaction[]
-}
+export const Table: React.FC = () => {
+  const { transactions } = useContext(transactionContext)
 
-export const Table: React.FC<TableProps> = ({ transactions }) => {
   return (
     <Container>
       <thead>
@@ -23,7 +23,7 @@ export const Table: React.FC<TableProps> = ({ transactions }) => {
           <tr key={transaction.id}>
             <td className="title">{transaction.title}</td>
             <td className={transaction.type}>{transaction.formattedValue}</td>
-            <td>{transaction.category.title}</td>
+            <td>{transaction.category?.title}</td>
             <td>{transaction.formattedDate}</td>
           </tr>
         ))}

@@ -1,44 +1,32 @@
+import { useCallback, useContext, useEffect } from 'react'
+
+import {
+  Balance,
+  transactionContext,
+  TransactionData
+} from '@/hooks/TransactionProvider'
 import { Header } from '@/components/Header'
 import { formatValue } from '@/util/formatValue'
-import { useCallback, useState } from 'react'
-
 import { Button } from '@/components/Button'
 import { Card } from './_Card'
 import { Table } from './_Table'
 import { ModalCreate } from './_ModalCreate'
-
 import { api } from '../../services/api'
 
 import { Container, CardContainer, TableContainer } from './styles'
 
-export interface Transaction {
-  id: string
-  title: string
-  value: number
-  formattedValue?: string
-  formattedDate?: string
-  type: 'income' | 'outcome'
-  category: { title: string }
-  created_at: Date
-}
-
-export interface Balance {
-  income: number | string
-  outcome: number | string
-  total: number | string
-}
-
 const Dashboard: React.FC = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([])
-  const [balance, setBalance] = useState<Balance>({} as Balance)
-  const [showModal, setShowModal] = useState<boolean>(false)
-
-  const createTransaction = useCallback(async (transaction: Transaction) => {
-    await api.post('/transactions', transaction)
-  }, [])
+  const {
+    transactions,
+    setTransactions,
+    setBalance,
+    balance,
+    setShowModal,
+    showModal
+  } = useContext(transactionContext)
 
   const formatTransactions = useCallback(
-    (transactions: Transaction[]): Transaction[] => {
+    (transactions: TransactionData[]): TransactionData[] => {
       return transactions.map(transaction => ({
         ...transaction,
         formattedValus: formatValue(transaction.value),
@@ -59,7 +47,7 @@ const Dashboard: React.FC = () => {
     []
   )
 
-  useState(() => {
+  useEffect(() => {
     const loadTransactions = async () => {
       const response = await api.get('/transactions')
       const data = response.data.data
@@ -72,11 +60,11 @@ const Dashboard: React.FC = () => {
     }
 
     loadTransactions()
-  }, [createTransaction])
+  }, [setShowModal, setTransactions])
 
   return (
     <>
-      {showModal && <ModalCreate createTransaction />}
+      {showModal && <ModalCreate />}
       <Header />
       <Container>
         <CardContainer>
@@ -100,7 +88,7 @@ const Dashboard: React.FC = () => {
         </Button>
 
         <TableContainer>
-          <Table transactions={transactions} />
+          <Table />
         </TableContainer>
       </Container>
     </>
