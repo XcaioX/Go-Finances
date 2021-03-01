@@ -15,23 +15,10 @@ export class TransactionsRepository extends Repository<Transaction> {
     }
 
     transactions.map(transaction => {
-      console.log(transaction.value)
       return (balance[transaction.type.toLocaleLowerCase()] += Number(
         transaction.value
       ))
     })
-
-    // const { income, outcome } = transactions.reduce(
-    //   (accumulator, transaction) => {
-    //     accumulator[transaction.type.toLocaleLowerCase()] += Number(
-    //       transaction.value
-    //     )
-    //   },
-    //   {
-    //     income: 0,
-    //     outcome: 0
-    //   }
-    // )
 
     balance.total = balance.income - balance.outcome
     return balance

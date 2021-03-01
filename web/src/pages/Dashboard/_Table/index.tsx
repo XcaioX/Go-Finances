@@ -1,11 +1,16 @@
-import { transactionContext } from '@/hooks/TransactionProvider'
+import {
+  transactionContext,
+  TransactionData
+} from '@/hooks/TransactionProvider'
 import { useContext } from 'react'
-import { Transaction } from '../index'
+import { Container, CloseItem } from './styles'
 
-import { Container } from './styles'
+type TableProps = {
+  transactions: TransactionData[]
+}
 
-export const Table: React.FC = () => {
-  const { transactions } = useContext(transactionContext)
+export const Table: React.FC<TableProps> = ({ transactions }) => {
+  const { deleteTransaction } = useContext(transactionContext)
 
   return (
     <Container>
@@ -19,14 +24,18 @@ export const Table: React.FC = () => {
       </thead>
 
       <tbody>
-        {transactions.map(transaction => (
-          <tr key={transaction.id}>
-            <td className="title">{transaction.title}</td>
-            <td className={transaction.type}>{transaction.formattedValue}</td>
-            <td>{transaction.category?.title}</td>
-            <td>{transaction.formattedDate}</td>
-          </tr>
-        ))}
+        {transactions &&
+          transactions.map(transaction => (
+            <tr key={transaction.id}>
+              <td className="title">{transaction.title}</td>
+              <td className={transaction.type.toLowerCase()}>
+                {transaction.formattedValue}
+              </td>
+              <td>{transaction.category?.title}</td>
+              <td>{transaction.formattedDate}</td>
+              <CloseItem onClick={() => deleteTransaction(transaction.id)} />
+            </tr>
+          ))}
       </tbody>
     </Container>
   )

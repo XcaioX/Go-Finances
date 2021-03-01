@@ -5,6 +5,16 @@ export const Container = styled.div`
   max-width: 1120px;
   margin: 0 auto;
   padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  > div {
+    padding: 20px 20px;
+
+    position: absolute;
+    right: 0;
+  }
 `
 
 export const Title = styled.h1`

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -36,6 +37,11 @@ export class TransactionsController {
   @Post()
   async createOne(@Body() payload: CreateTransactionDTO): Promise<Transaction> {
     return this.transactionsService.create(payload)
+  }
+
+  @Delete(':id')
+  async deleteTransaction(@Param('id') id: string): Promise<void> {
+    return this.transactionsService.deleteOne(id)
   }
 
   // @UseGuards(JwtAuthGuard)

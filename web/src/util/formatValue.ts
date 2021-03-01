@@ -1,6 +1,6 @@
 export const formatValue = (value: number): string => {
-  return Intl.NumberFormat('en-EN', {
+  return Intl.NumberFormat('pt-BR', {
     style: 'currency',
-    currency: 'USD'
+    currency: 'BRL'
   }).format(value)
 }

@@ -1,4 +1,5 @@
-import { createContext, useCallback, useState } from 'react'
+import { api } from '@/services/api'
+import { createContext, useCallback, useEffect, useState } from 'react'
 
 export type TransactionData = {
   id: string
@@ -21,9 +22,10 @@ type TransactionContextData = {
   transactions: TransactionData[]
   balance: Balance
   showModal: boolean
-  setTransactions: (transaction: TransactionData[]) => void
+  addTransactions: (transaction: TransactionData) => void
   setBalance: (balance: Balance) => void
   setShowModal: (value: boolean) => void
+  deleteTransaction: (id: string) => void
 }
 
 export const transactionContext = createContext<TransactionContextData>(
@@ -35,11 +37,35 @@ export const TransactionProvider: React.FC = ({ children }) => {
   const [balance, setBalance] = useState<Balance>({} as Balance)
   const [showModal, setShowModal] = useState<boolean>(false)
 
+  const deleteTransaction = useCallback(async (id: string) => {
+    await api.delete(`/transactions/${id}`)
+  }, [])
+
+  const addTransactions = useCallback((transaction: TransactionData) => {
+    setTransactions([...transactions, transaction])
+  }, [])
+
+  useEffect(() => {
+    const loadTransactions = async () => {
+      const response = await api.get('/transactions')
+      const data = response.data.data
+
+      const transactions = data.transactions
+      const balance = data.balance
+
+      setTransactions(transactions)
+      setBalance(balance)
+    }
+
+    loadTransactions()
+  }, [showModal])
+
   return (
     <transactionContext.Provider
       value={{
         transactions,
-        setTransactions,
+        addTransactions,
+        deleteTransaction,
         balance,
         setBalance,
         showModal,

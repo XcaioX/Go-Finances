@@ -1,6 +1,6 @@
+import { Balance } from '@/hooks/TransactionProvider'
 import { ImgHTMLAttributes } from 'react'
 
-import { Balance } from '../index'
 import { Container } from './styles'
 
 interface CardProps extends ImgHTMLAttributes<HTMLImageElement> {

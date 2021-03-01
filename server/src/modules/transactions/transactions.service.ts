@@ -30,6 +30,10 @@ export class TransactionsService {
     return { transactions, balance }
   }
 
+  async deleteOne(id: string): Promise<void> {
+    await this.transactionsRepository.delete(id)
+  }
+
   async findOne(id: string): Promise<Transaction> {
     const transaction = this.transactionsRepository.findOne(id)
 
@@ -43,7 +47,7 @@ export class TransactionsService {
   async create(payload: CreateTransactionDTO): Promise<Transaction> {
     let category = await this.categoriesService.findCategories(payload.category)
 
-    if (!category) {
+    if (!category.length) {
       category = await this.categoriesService.createCategories(payload.category)
     }
 
@@ -55,12 +59,10 @@ export class TransactionsService {
   }
 
   async createManyFromFile(filePath: string): Promise<Transaction[]> {
-    const contactsReadbleStream = fs.createReadStream(filePath)
-
     const parsers = csvParse({
       from_line: 2
     })
-
+    const contactsReadbleStream = fs.createReadStream(filePath)
     const parseCSV = contactsReadbleStream.pipe(parsers)
 
     const transactions: CreateTransactionDTO[] = []

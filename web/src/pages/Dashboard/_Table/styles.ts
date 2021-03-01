@@ -1,8 +1,14 @@
 import styled from 'styled-components'
+import { AiOutlineClose } from 'react-icons/ai'
 
 export const Container = styled.table`
   width: 100%;
   border-spacing: 0 8px;
+
+  tr {
+    position: relative;
+  }
+
   th {
     color: #969cb3;
     font-weight: normal;
@@ -11,6 +17,7 @@ export const Container = styled.table`
     font-size: 16px;
     line-height: 24px;
   }
+
   td {
     padding: 20px 32px;
     border: 0;
@@ -18,6 +25,7 @@ export const Container = styled.table`
     font-size: 16px;
     font-weight: normal;
     color: #969cb3;
+
     &.title {
       color: #363f5f;
     }
@@ -28,10 +36,19 @@ export const Container = styled.table`
       color: #e83f5b;
     }
   }
+
   td:first-child {
     border-radius: 8px 0 0 8px;
   }
   td:last-child {
     border-radius: 0 8px 8px 0;
   }
+`
+
+export const CloseItem = styled(AiOutlineClose)`
+  color: #e83f5b;
+  font-size: 2rem;
+  position: absolute;
+  margin: 20px 0px;
+  transform: translateX(-40px);
 `
