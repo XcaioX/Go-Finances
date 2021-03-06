@@ -4,7 +4,7 @@ import {
   Balance,
   transactionContext,
   TransactionData
-} from '@/hooks/TransactionProvider'
+} from '@/hooks/TransactionContext'
 import { Header } from '@/components/Header'
 import { formatValue } from '@/util/formatValue'
 import { Button } from '@/components/Button'

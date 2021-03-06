@@ -12,6 +12,7 @@
     "@unform/core": "^2.1.6",
     "@unform/web": "^2.1.6",
     "axios": "^0.21.1",
+    "filesize": "^6.1.0",
     "framer-motion": "^2.9.5",
     "next": "10.0.4",
     "next-images": "^1.6.2",

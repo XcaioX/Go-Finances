@@ -1,4 +1,4 @@
-import { TransactionProvider } from './TransactionProvider'
+import { TransactionProvider } from './TransactionContext'
 
 const ContextProvider: React.FC = ({ children }) => {
   return <TransactionProvider>{children}</TransactionProvider>

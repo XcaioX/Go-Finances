@@ -1,4 +1,4 @@
-import { Balance } from '@/hooks/TransactionProvider'
+import { Balance } from '@/hooks/TransactionContext'
 import { ImgHTMLAttributes } from 'react'
 
 import { Container } from './styles'

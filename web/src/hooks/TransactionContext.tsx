@@ -1,5 +1,5 @@
 import { api } from '@/services/api'
-import { createContext, useCallback, useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 export type TransactionData = {
   id: string
@@ -37,13 +37,17 @@ export const TransactionProvider: React.FC = ({ children }) => {
   const [balance, setBalance] = useState<Balance>({} as Balance)
   const [showModal, setShowModal] = useState<boolean>(false)
 
-  const deleteTransaction = useCallback(async (id: string) => {
+  const deleteTransaction = async (id: string) => {
     await api.delete(`/transactions/${id}`)
-  }, [])
 
-  const addTransactions = useCallback((transaction: TransactionData) => {
+    setTransactions(() =>
+      transactions.filter(transaction => transaction.id !== id)
+    )
+  }
+
+  const addTransactions = (transaction: TransactionData) => {
     setTransactions([...transactions, transaction])
-  }, [])
+  }
 
   useEffect(() => {
     const loadTransactions = async () => {

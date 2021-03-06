@@ -1,9 +1,8 @@
-import {
-  transactionContext,
-  TransactionData
-} from '@/hooks/TransactionProvider'
 import { useContext } from 'react'
-import { Container, CloseItem } from './styles'
+
+import { CloseItem } from '@/components/CloseItem/styles'
+import { transactionContext, TransactionData } from '@/hooks/TransactionContext'
+import { Container } from './styles'
 
 type TableProps = {
   transactions: TransactionData[]

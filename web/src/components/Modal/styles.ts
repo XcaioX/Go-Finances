@@ -16,7 +16,7 @@ export const Container = styled.div`
   div {
     background: #fff;
     width: 100%;
-    max-width: 400px;
+    max-width: 700px;
     padding: 2rem 3rem;
     border-radius: 5px;
     box-shadow: 0 0 68px rgba(0, 0, 0, 0.05);
