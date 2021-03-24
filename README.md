@@ -1,7 +1,8 @@
 ## Go-Finances
 
 <p>Project made by following GoStack bootcamp provided by Rocketseat</p>
-<p>Another version of the project but made with React -> [dt-Money](https://github.com/XcaioX/dt-Money)</p>
+<p>Another version of the project but made with React</p>
+<p>[dt-Money](https://github.com/XcaioX/dt-Money)</p>
 
 <hr />
 
